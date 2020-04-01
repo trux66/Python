@@ -18,7 +18,8 @@ def pairwise(s):
     [('a', 'b'), ('c', 'd')]
     """
     it = iter(s)
-    return zip(it,it)
+    return zip(it, it)
+
 
 morse_encoding = dict(pairwise('''
     a .-    b -...  c -.-.  d -..   e .     f ..-.  
@@ -36,7 +37,8 @@ morse_encoding = dict(pairwise('''
     " .-..-.  $ ...-..- @ .--.-.
     '''.split()))
 
-morse_decoding = {v:k for k,v in morse_encoding.items()}
+morse_decoding = {v: k for k, v in morse_encoding.items()}
+
 
 def is_morse_code(s):
     """
@@ -50,6 +52,7 @@ def is_morse_code(s):
     """
     return set(s) <= set('.- ')
 
+
 def morse_encode(s):
     """
     Encode the string `s` in Morse code and return the result. 
@@ -59,7 +62,8 @@ def morse_encode(s):
     '-- --- .-. ... .  -.-. --- -.. .'
     """
     return '  '.join(' '.join(morse_encoding[l] for l in word)
-                    for word in s.lower().split(' '))
+                     for word in s.lower().split(' '))
+
 
 def morse_decode(s):
     """
@@ -71,6 +75,7 @@ def morse_decode(s):
     """
     return ' '.join(''.join(morse_decoding[l] for l in word.split(' '))
                     for word in s.split('  '))
+
 
 msg = input('MESSAGE: ')
 if is_morse_code(msg):
