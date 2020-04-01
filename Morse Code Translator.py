@@ -77,4 +77,3 @@ if is_morse_code(msg):
     print(morse_decode(msg))
 else:
     print(morse_encode(msg))
-

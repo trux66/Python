@@ -54,7 +54,6 @@ def main():
     if re.match("[.-/]",msg):
         matchObj = re.match('[.-]{1,5}(?> [.-]{1,5})*(?>   [.-]{1,5}(?> [.-]{1,5})*)*',msg)
         print(matchObj.groups())
-
     else:
         for char in msg:
             print(CODE_OUT[char.upper()],)
