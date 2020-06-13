@@ -43,6 +43,7 @@ fgColor = pygame.Color("white")
 pygame.draw.rect(screen, fgColor, pygame.Rect((0,0), (WIDTH,HEIGHT)))
 pygame.draw.rect(screen, fgColor, pygame.Rect(0,0,BORDER,HEIGHT))
 pygame.draw.rect(screen, fgColor, pygame.Rect(0,HEIGHT-BORDER,WIDTH,BORDER))
+screen.fill(bgColor)
 
 ballplay.show(fgColor)
 
