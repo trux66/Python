@@ -5,9 +5,9 @@ WIDTH = 1200
 HEIGHT = 600
 BORDER = 20
 VELOCITY = 15
-FRAMERATE = 35
+FRAMERATE = 10
 
-# Define my classes
+
 class Ball:
     RADIUS = 20
 
@@ -28,15 +28,18 @@ class Ball:
 
         if newX < BORDER + self.RADIUS:
             self.vx = - self.vx  # change direction is next to a border object
-        elif newY < BORDER + self.RADIUS or newY > HEIGHT - BORDER - self.RADIUS:
+        elif newY < BORDER + self.RADIUS or \
+                newY > HEIGHT - BORDER - self.RADIUS:
             self.vy = - self.vy
-        elif newX + self.RADIUS > WIDTH - Paddle.WIDTH and abs(newY - paddle.y) < Paddle.HEIGHT//2:
+        elif newX + self.RADIUS > WIDTH - Paddle.WIDTH and \
+                abs(newY - paddle.y) < Paddle.HEIGHT//2:
             self.vy = - self.vx
         else:
             self.show(bgColor)
             self.x = self.x + self.vx
             self.y = self.y + self.vy
             self.show(fgColor)
+
 
 class Paddle:
     WIDTH = 20
@@ -47,7 +50,8 @@ class Paddle:
 
     def show(self, color):
         global screen
-        pygame.draw.rect(screen, color, pygame.Rect(WIDTH - self.WIDTH, self.y - self.HEIGHT//2, WIDTH, HEIGHT))
+        pygame.draw.rect(screen, color, pygame.Rect(
+            WIDTH - self.WIDTH, self.y - self.HEIGHT//2, WIDTH, HEIGHT))
 
     def update(self):
         global fgColor, bgColor
@@ -72,7 +76,8 @@ pygame.draw.rect(screen, fgColor, pygame.Rect(0, 0, BORDER, HEIGHT))
 pygame.draw.rect(screen, fgColor, pygame.Rect(0, HEIGHT-BORDER, WIDTH, BORDER))
 
 # Create the ball and paddle
-ball = Ball(WIDTH - Ball.RADIUS - Paddle.WIDTH, HEIGHT//2, -VELOCITY, -VELOCITY)
+ball = Ball(WIDTH - Ball.RADIUS - Paddle.WIDTH,
+            HEIGHT//2, -VELOCITY, -VELOCITY)
 ball.show(fgColor)
 
 paddle = Paddle(HEIGHT//2)
