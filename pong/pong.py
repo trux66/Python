@@ -47,7 +47,7 @@ class Paddle:
 
     def show(self, color):
         global screen
-        pygame.draw.rect(screen, color, pygame.Rect((WIDTH-self.WIDTH, self.y-self.HEIGHT//2)))
+        pygame.draw.rect(screen, color, pygame.Rect(WIDTH - self.WIDTH, self.y - self.HEIGHT//2, WIDTH, HEIGHT))
 
     def update(self):
         global fgColor, bgColor
