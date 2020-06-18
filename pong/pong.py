@@ -5,11 +5,11 @@ WIDTH = 1200
 HEIGHT = 600
 BORDER = 20
 VELOCITY = 15
-FRAMERATE = 10
+FRAMERATE = 50
 
 
 class Ball:
-    RADIUS = 20
+    RADIUS = 10
 
     def __init__(self, x, y, vx, vy):
         self.x = x
@@ -23,17 +23,17 @@ class Ball:
 
     def update(self):
         global bgColor, fgColor
-        newX = self.x = self.x + self.vx
-        newY = self.y = self.y + self.vy
+        newX = self.x + self.vx
+        newY = self.y + self.vy
 
         if newX < BORDER + self.RADIUS:
-            self.vx = - self.vx  # change direction is next to a border object
+            self.vx = -self.vx  # change direction is next to a border object
         elif newY < BORDER + self.RADIUS or \
                 newY > HEIGHT - BORDER - self.RADIUS:
-            self.vy = - self.vy
+            self.vy = -self.vy
         elif newX + self.RADIUS > WIDTH - Paddle.WIDTH and \
                 abs(newY - paddle.y) < Paddle.HEIGHT//2:
-            self.vy = - self.vx
+            self.vx = -self.vx
         else:
             self.show(bgColor)
             self.x = self.x + self.vx
@@ -51,7 +51,8 @@ class Paddle:
     def show(self, color):
         global screen
         pygame.draw.rect(screen, color, pygame.Rect(
-            WIDTH - self.WIDTH, self.y - self.HEIGHT//2, WIDTH, HEIGHT))
+            (WIDTH - self.WIDTH, self.y - self.HEIGHT//2),
+            (self.WIDTH, self.HEIGHT)))
 
     def update(self):
         global fgColor, bgColor
@@ -62,18 +63,21 @@ class Paddle:
 
 # Draw the scenario
 pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode([WIDTH, HEIGHT])
 
-bgColor = pygame.Color("black")
-fgColor = pygame.Color("white")
+bgColor = pygame.Color('black')
+fgColor = pygame.Color('white')
 
 # fill the background
 screen.fill(bgColor)
 
 # Drawing the walls
-pygame.draw.rect(screen, fgColor, pygame.Rect(0, 0, WIDTH, HEIGHT))
-pygame.draw.rect(screen, fgColor, pygame.Rect(0, 0, BORDER, HEIGHT))
-pygame.draw.rect(screen, fgColor, pygame.Rect(0, HEIGHT-BORDER, WIDTH, BORDER))
+pygame.draw.rect(screen, fgColor, pygame.Rect((0, 0), (WIDTH, BORDER)))
+pygame.draw.rect(screen, fgColor, pygame.Rect((0, 0), (BORDER, HEIGHT)))
+pygame.draw.rect(screen, fgColor, pygame.Rect(
+    (0, HEIGHT - BORDER), (WIDTH, BORDER)))
+
+pygame.display.flip()
 
 # Create the ball and paddle
 ball = Ball(WIDTH - Ball.RADIUS - Paddle.WIDTH,
@@ -92,8 +96,8 @@ while True:
 
     clock.tick(FRAMERATE)
     # visualize the changes just made
-    pygame.display.flip()
-    paddle.update()
     ball.update()
+    paddle.update()
+    pygame.display.flip()
 
 pygame.quit()
